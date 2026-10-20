@@ -4,11 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.SubsystemCommands;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -20,13 +23,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final Drive drive = new Drive();
+  private final Shooter shooter = new Shooter();
+  private final Intake intake = new Intake();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController = 
-      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+  private final CommandXboxController driverController =
+      new CommandXboxController(DriveConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -46,7 +48,19 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    drive.setDefaultCommand(
+      Commands.run(
+        () -> drive.tankDrive(driverController.getLeftY(), driverController.getRightY()), 
+        drive
+      )
+    );
+
+    driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
+    driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
+
+    driverController.rightBumper().whileTrue(SubsystemCommands.spinIntake(intake));
+    driverController.rightTrigger().whileTrue(SubsystemCommands.reverseIntake(intake));
   }
 
   /**
@@ -56,6 +70,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    // return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.shooterAuto(drive,shooter);
   }
 }
