@@ -6,7 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.SubsystemCommands;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,7 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive drive = new Drive();
-
+  private final Shooter shooter = new Shooter();
+  private final Intake intake = new Intake();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(DriveConstants.kDriverControllerPort);
@@ -51,6 +55,12 @@ public class RobotContainer {
         drive
       )
     );
+
+    driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
+    driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
+
+    driverController.rightBumper().whileTrue(SubsystemCommands.spinIntake(intake));
+    driverController.rightTrigger().whileTrue(SubsystemCommands.reverseIntake(intake));
   }
 
   /**
@@ -58,9 +68,13 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getLeaveAuto() {
     // An example command will be run in autonomous
     // return Autos.exampleAuto(m_exampleSubsystem);
-    return Autos.LeaveAuto(drive);
+    return Autos.leaveAuto(drive);
+  }
+
+  public Command getShooterAuto() {
+    return Autos.shooterAuto(drive, shooter);
   }
 }
