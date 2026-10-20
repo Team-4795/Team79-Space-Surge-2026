@@ -68,13 +68,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getLeaveAuto() {
+  public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     // return Autos.exampleAuto(m_exampleSubsystem);
-    return Autos.leaveAuto(drive);
-  }
-
-  public Command getShooterAuto() {
-    return Autos.shooterAuto(drive, shooter);
+    return Autos.shooterAuto(drive,shooter);
   }
 }
