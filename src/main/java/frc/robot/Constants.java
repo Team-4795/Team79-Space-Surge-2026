@@ -19,7 +19,8 @@ public final class Constants {
     public static final int rightMotorID = 1; 
   }
   public static class ShooterConstants {
-    public static final int shooterMotorID = 2;
+    public static final int leftShooterMotorID = 2;
+    public static final int rightShooterMotorID = 4;
   }
   public static class IntakeConstants {
     public static final int intakeMotorID = 3;
