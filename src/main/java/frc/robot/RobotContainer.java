@@ -56,6 +56,9 @@ public class RobotContainer {
       )
     );
 
+    shooter.setDefaultCommand(Commands.run(() -> shooter.setShooterPower(0)));
+    intake.setDefaultCommand(Commands.run(() -> intake.setIntakePower(0)));
+
     driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
     driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
 
