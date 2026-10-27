@@ -4,20 +4,25 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveSim;
+import frc.robot.subsystems.ShooterSim;
+import frc.robot.subsystems.IntakeSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
 
-  public static Command leaveAuto(Drive drive) {
-    return Commands.run(() -> drive.tankDrive(0.5,0.5), drive).withTimeout(3);
+  public static Command leaveAuto(DriveSim driveSim) {
+    return Commands.run(() -> 
+      driveSim.tankDrive(0.75,0.75), driveSim).
+      withTimeout(3);
   }
 
-  public static Command shooterAuto(Drive drive, Shooter shooter) {
-    return Commands.sequence(SubsystemCommands.spinShooter(shooter).withTimeout(5),
-     leaveAuto(drive));
+  public static Command shooterAuto(DriveSim driveSim, ShooterSim shooterSim) {
+    return Commands.sequence(
+      SubsystemCommands.spinShooter(shooterSim).
+      withTimeout(5),
+      leaveAuto(driveSim));
   }
 }

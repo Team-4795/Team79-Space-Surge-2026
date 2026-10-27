@@ -7,9 +7,9 @@ package frc.robot;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.SubsystemCommands;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveSim;
+import frc.robot.subsystems.IntakeSim;
+import frc.robot.subsystems.ShooterSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drive drive = new Drive();
-  private final Shooter shooter = new Shooter();
-  private final Intake intake = new Intake();
+  private final DriveSim drive = new DriveSim();
+  private final ShooterSim shooter = new ShooterSim();
+  private final IntakeSim intake = new IntakeSim();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(DriveConstants.kDriverControllerPort);
@@ -51,13 +51,13 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     drive.setDefaultCommand(
       Commands.run(
-        () -> drive.tankDrive(driverController.getLeftY(), driverController.getRightY()), 
+        () -> drive.arcadeDrive(-driverController.getLeftY(), -driverController.getRightX()), 
         drive
       )
     );
 
-    shooter.setDefaultCommand(Commands.run(() -> shooter.setShooterPower(0)));
-    intake.setDefaultCommand(Commands.run(() -> intake.setIntakePower(0)));
+    shooter.setDefaultCommand(Commands.run(() -> shooter.setShooterPower(0),shooter));
+    intake.setDefaultCommand(Commands.run(() -> intake.setIntakePower(0),intake));
 
     driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
     driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
@@ -74,6 +74,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     // return Autos.exampleAuto(m_exampleSubsystem);
-    return Autos.shooterAuto(drive,shooter);
+    return Autos.shooterAuto(drive, shooter);
   }
 }
