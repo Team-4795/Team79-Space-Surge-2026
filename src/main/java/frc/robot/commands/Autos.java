@@ -12,7 +12,7 @@ public final class Autos {
   /** Example static factory for an autonomous command. */
 
   public static Command LeaveAuto(Drive drive) {
-    return Commands.run(() -> drive.tankDrive(0.5,0.5), drive).withTimeout(3);
+    return Commands.run(() -> drive.tankDrive(0.75,0.75), drive).withTimeout(3);
   }
 
 }
