@@ -51,7 +51,7 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     drive.setDefaultCommand(
       Commands.run(
-        () -> drive.tankDrive(driverController.getLeftY(), driverController.getRightY()), 
+        () -> drive.arcadeDrive(-driverController.getLeftY(), -driverController.getRightX()), 
         drive
       )
     );
