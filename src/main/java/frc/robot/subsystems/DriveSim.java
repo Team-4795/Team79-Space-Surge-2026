@@ -32,7 +32,6 @@ public class DriveSim extends SubsystemBase {
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    //driveSim.tankDrive(leftSpeed, rightSpeed);
     driveSim.setInputs(leftSpeed * 5, rightSpeed * 5);
   }
 

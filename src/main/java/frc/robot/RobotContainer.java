@@ -29,7 +29,6 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(DriveConstants.kDriverControllerPort);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -61,9 +60,11 @@ public class RobotContainer {
 
     driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
     driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
+    driverController.a().whileTrue(SubsystemCommands.spinShooterFull(shooter));
 
     driverController.rightBumper().whileTrue(SubsystemCommands.spinIntake(intake));
     driverController.rightTrigger().whileTrue(SubsystemCommands.reverseIntake(intake));
+    driverController.b().whileTrue(SubsystemCommands.spinIntakeFull(intake));
   }
 
   /**
