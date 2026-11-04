@@ -61,9 +61,11 @@ public class RobotContainer {
 
     driverController.leftBumper().whileTrue(SubsystemCommands.spinShooter(shooter));
     driverController.leftTrigger().whileTrue(SubsystemCommands.reverseShooter(shooter));
+    driverController.a().whileTrue(SubsystemCommands.spinShooterFull(shooter));
 
     driverController.rightBumper().whileTrue(SubsystemCommands.spinIntake(intake));
     driverController.rightTrigger().whileTrue(SubsystemCommands.reverseIntake(intake));
+    driverController.b().whileTrue(SubsystemCommands.spinIntakeFull(intake));
   }
 
   /**

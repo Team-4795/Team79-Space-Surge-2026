@@ -12,11 +12,17 @@ public class SubsystemCommands {
     public static Command reverseShooter(Shooter shooter) {
         return Commands.run(() -> shooter.setShooterPower(-0.5));
     }
+    public static Command spinShooterFull(Shooter shooter) {
+        return Commands.run(() -> shooter.setShooterPower(1));
+    }
 
     public static Command spinIntake(Intake intake) {
         return Commands.run(() -> intake.setIntakePower(0.5));
     }
     public static Command reverseIntake(Intake intake) {
         return Commands.run(() -> intake.setIntakePower(-0.5));
+    }
+    public static Command spinIntakeFull(Intake intake) {
+        return Commands.run(() -> intake.setIntakePower(1));
     }
 }
