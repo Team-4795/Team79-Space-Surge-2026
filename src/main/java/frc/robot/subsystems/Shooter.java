@@ -7,13 +7,11 @@ import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase{
 
-    private MotorController leftShooterMotor = new VictorSP(ShooterConstants.leftShooterMotorID);
-    private MotorController rightShooterMotor = new VictorSP(ShooterConstants.rightShooterMotorID);
+    private MotorController shooterMotor = new VictorSP(ShooterConstants.shooterMotorID);
 
     public Shooter() {}
 
     public void setShooterPower(double speed) {
-        leftShooterMotor.set(speed);
-        rightShooterMotor.set(-speed);
+        shooterMotor.set(speed);
     }
 }
