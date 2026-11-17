@@ -10,9 +10,16 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-
+  public static Command spin180(Drive drive) {
+    return Commands.run(() -> drive.tankDrive(0.5, -0.5)).withTimeout(1.225);
+  }
   public static Command LeaveAuto(Drive drive) {
     return Commands.run(() -> drive.tankDrive(0.75,0.75), drive).withTimeout(3);
+  }
+
+  //IntakeAuto but without the intake
+  public static Command TestAuto(Drive drive) {
+    return Commands.sequence(LeaveAuto(drive),spin180(drive),LeaveAuto(drive));
   }
 
 }
